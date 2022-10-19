@@ -95,4 +95,33 @@ select NombreR from Restaurante;
 create view pagos as
 select tipo_pago from Forma_De_Pago;
 
+-- Funciones almacenadas
+
+-- El objetivo de la primera funcion es saber los medios de pago que acepta la aplicacion
+
+delimiter //
+
+create function tipopagos() returns varchar(45)
+deterministic
+begin
+return 'efectivo,debito,credito';
+end //;
+
+select tipopagos();
+
+-- El objetivo de la segunda funcion es saber el costo de una cena total en base a los precios dados en el set de datos, 
+-- contando la comida, bebidas y helado. (Suma las 3)
+
+delimiter //
+
+create function totalcenas (comida int, bebidas int, helado int) returns int
+deterministic
+begin
+declare costototal int;
+set costototal= ((comida)+(bebidas)+(helado));
+return costototal;
+end //;
+
+select totalcenas (100,150,200);
+
 
